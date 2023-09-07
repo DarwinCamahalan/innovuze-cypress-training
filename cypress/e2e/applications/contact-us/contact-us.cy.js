@@ -13,6 +13,7 @@ describe('Contact Us', () => {
             cy.get("#Phone").type("#1234")
             cy.get(".mktoButtonWrap > button").click()
             cy.get("#optIn").check()
+            // add assertion on class attribute change
         })
     });
 
@@ -29,9 +30,12 @@ describe('Contact Us', () => {
             cy.get("#commentCapture").type("N/A")
             cy.get(".mktoButtonWrap > button").click()
             cy.get("#optIn").check()
+            // BUTTON TEXT SHOULD CHANGED ASSERTION
+            // Input should be equal to John
         })
     });
 
+    // Assert modal title / Header
     it('Verify modal can be closed', () => {
         cy.get(".close-modal ").click()
     });

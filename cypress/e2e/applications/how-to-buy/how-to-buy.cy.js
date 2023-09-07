@@ -38,7 +38,7 @@ describe('How to Buy', () => {
     });
 
 
-it.only('Verify filter functionality is working', () => {
+it('Verify filter functionality is working', () => {
     cy.get(".pe-8").type("7solutions")
     cy.get(".pe-8").clear()
     cy.get(".pagination-sort").select(1)
@@ -49,22 +49,19 @@ it.only('Verify filter functionality is working', () => {
             cy.get(".simple-scrollbar").eq(index).within(() =>{
                 cy.get("div > label > input").each((el) =>{
                     cy.wrap(el).check()
-                    cy.wrap(el).uncheck()
+                    cy.wrap(el).uncheck() 
+                    // ASSERT IF CHECKBOX IS CHECKED/UNCHECKED
                 })
             })
         })
     })
 
-
-
-    // cy.get(".pagination-list").within(() =>{
-    //     cy.get(".pagination-item").each((el, index)=>{
-    //     if(cy.wrap(el).get("div > a").contains("E-mail"))
-    //     cy.wrap(el).get("div > a").contains("E-mail").should("exist")
-    //     })
-    // })
-
     cy.get(".paging-select").each((el, index)=>{
+        cy.get(".paging-select")
+        // REMOVE FOR LOOP
+        // SELECT PREVIOUS BUTTONS
+        // ASSERT SHOWING VALUE
+
         for(let i = 0; i < 15; i++){
             cy.wrap(el).select(i)
             if(i === 14){
@@ -72,6 +69,31 @@ it.only('Verify filter functionality is working', () => {
             }
         }
     })
+    
+    cy.get(".pagination-list").within(()=>{
+
+        cy.get(".pagination-item").each((el)=>{
+            cy.wrap(el).get("div > div:last-child > a").contains("E-mail").should("exist")
+            // CHECK MAILTO ATTRIBUTE
+        })
+    })
+
+
+    cy.get(".button").contains("Contact").each((el, index)=>{
+        cy.get(el).eq(index)
+        .click()
+        cy.get(".close-modal").click()
+    })
+
+
+    cy.get(".button").contains("Website").each((el, index)=>{
+        cy.get(el).eq(index)
+        .invoke("removeAttr", "target")
+        .click()
+        cy.go("back")
+    })
+
+
 });
 
 })
