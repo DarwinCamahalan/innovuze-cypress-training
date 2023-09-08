@@ -3,6 +3,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   chromeWebSecurity: false,
+  numTestsKeptInMemory: 0,
   e2e: {
     baseUrl: "https://www-stage.advancedenergy.com/en-us/",
     viewportHeight: 1080,
