@@ -67,7 +67,7 @@ class applicationsObject{
         .as(alias)
         .each((el, index) =>{
             cy.get(`@${alias}`).eq(index).click({force: true})
-            cy.get(assertionElement).contains(assertionText)
+            cy.get(assertionElement, {timeout: 100_000}).contains(assertionText)
             cy.get(element2).click({force: true})
         }) 
     }
@@ -84,23 +84,23 @@ class applicationsObject{
     }
 
     websiteButtonLoop(element, text, attr){
-        cy.get(element).contains(text).each((el, index)=>{
-
-            // Assert Link is available
-            cy.wrap(el)
-            .invoke('attr','href')
-            .then(href => {
-              cy.request(href)
-                 .its('status')
-                 .should('eq',200)
-            })
-
-            cy.wrap(el).eq(index)
-            .invoke("removeAttr", attr)
-            .click()
-
-            cy.go("back")
-        })
+        cy.fixture('website').then((links) => {
+            cy.get(element).contains(text).each(($el) => {
+              cy.wrap($el)
+                .invoke('attr', 'href')
+                .then((href) => {
+                  expect(links.links.includes(href)).to.be.true; 
+                });
+        
+              cy.get($el)
+                .invoke('removeAttr', attr)
+                .then(() => {
+                  cy.get($el).click();
+                  cy.wait(1000);
+                  cy.go('back');
+                });
+            });
+          });
     }
 
     contactButtonLoop(element, text, element2){

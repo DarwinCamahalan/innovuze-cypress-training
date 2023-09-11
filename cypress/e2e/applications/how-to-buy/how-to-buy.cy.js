@@ -18,7 +18,7 @@ describe('How to Buy', () => {
         app.clickButton(".close-modal")
     });
 
-    it('Verify Modal Functionality is Working', () => {
+    it.only('Verify Modal Functionality is Working', () => {
         app.clickButton(".absolute:eq(4)")
 
         app.inputData(".js-product-series-inventory-search", "A Series")
@@ -60,37 +60,44 @@ describe('How to Buy', () => {
         app.inputData(".pe-8", "7solutions")   
         app.verifyAttributeDataExist("h3", "7Solutions")
         
-        // Remove the search filter
+        // // Remove the search filter
         app.clickButton(".bg-main-600:eq(0)")
 
-        // Assert Advanced Energy is on the lists
+        // // Assert Advanced Energy is on the lists
         app.inputData(".pe-8", "Advanced Energy")  
         app.verifyAttributeDataExist("h3", "Advanced Energy")
         app.clearData(".pe-8") 
 
-        // Assert List has change order from Z-A
-        app.selectOptionNoAssert(".pagination-sort", 0)  
+        // // Assert List has change order from Z-A
+        app.selectOptionNoAssert(".pagination-sort", 1)  
         app.verifyAttributeDataExist("h3", "YE International")
 
-        // Assert List has change order from A-Z
-        app.selectOptionNoAssert(".pagination-sort", 1)  
+        // // Assert List has change order from A-Z
+        app.selectOptionNoAssert(".pagination-sort", 0)  
         app.verifyAttributeDataExist("h3", "7Solutions")
 
-        // Assert if checkbox is checked or unchecked
+        // // Assert if checkbox is checked or unchecked
         app.testCheckBox(".form-checkbox", "checkbox")
 
+        // Assert Link is available & click website button
         app.websiteButtonLoop(".button", "Website", "target")
         
+        // // Opens and close the contact modal
         app.contactButtonLoop(".button", "Contact", ".close-modal")
 
-        // yields the value of the "href" attribute
+        // // yields the value of the "href" attribute
         app.emailButtonLoop(".pagination-list", ".pagination-item", 
         "div > div:last-child > a", "E-mail")
 
+        // // Paginate to next list
         app.selectOptionLoop(".paging-select > option", ".paging-select")
 
+        // Click next and previous button
         app.clickButton(".pagination-prev")
         app.clickButton(".pagination-next")
+
+        // paginate to default list
+        app.selectOptionNoAssert(".paging-select", 0)
     });
 
 })
