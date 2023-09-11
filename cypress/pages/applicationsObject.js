@@ -82,6 +82,34 @@ class applicationsObject{
             })
         })
     }
+
+    websiteButtonLoop(element, text, attr){
+        cy.get(element).contains(text).each((el, index)=>{
+
+            // Assert Link is available
+            cy.wrap(el)
+            .invoke('attr','href')
+            .then(href => {
+              cy.request(href)
+                 .its('status')
+                 .should('eq',200)
+            })
+
+            cy.wrap(el).eq(index)
+            .invoke("removeAttr", attr)
+            .click()
+
+            cy.go("back")
+        })
+    }
+
+    contactButtonLoop(element, text, element2){
+        cy.get(element).contains(text).each((el, index)=>{
+            cy.get(el).eq(index)
+            .click()
+            cy.get(element2).click()
+        })
+    }
     
 }
 

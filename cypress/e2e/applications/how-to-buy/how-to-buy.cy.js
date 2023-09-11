@@ -79,20 +79,9 @@ describe('How to Buy', () => {
         // Assert if checkbox is checked or unchecked
         app.testCheckBox(".form-checkbox", "checkbox")
 
-        cy.get(".button").contains("Website").each((el, index)=>{
-            cy.get(el).eq(index)
-            .invoke("removeAttr", "target")
-            .click()
-            // ASSERTION TO THE NEW URL CONTAINS THE TITLE
-            // 7solutions
-            cy.go("back")
-        })
+        app.websiteButtonLoop(".button", "Website", "target")
         
-        cy.get(".button").contains("Contact").each((el, index)=>{
-            cy.get(el).eq(index)
-            .click()
-            cy.get(".close-modal").click()
-        })
+        app.contactButtonLoop(".button", "Contact", ".close-modal")
 
         // yields the value of the "href" attribute
         app.emailButtonLoop(".pagination-list", ".pagination-item", 
