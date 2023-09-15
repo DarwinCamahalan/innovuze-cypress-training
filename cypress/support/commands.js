@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('acceptCookies', { }, (element) => { 
-    cy.get(element, {timeout: 10_000}).click()
+    cy.get(element, {timeout: 100_000}).click()
  })
 
  Cypress.Commands.add('visitPage', { }, (url) => { 

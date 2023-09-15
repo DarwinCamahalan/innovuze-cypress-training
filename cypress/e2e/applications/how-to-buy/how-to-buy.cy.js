@@ -12,13 +12,15 @@ describe('How to Buy', () => {
         app.verifyTitleHeader("h1", "How to Buy")
     });
 
-    it('Verify Stock check button is working', () => {
-        app.clickButton(".absolute:eq(4)")
-        app.verifyTitleHeader("h2", "Stock Check")
-        app.clickButton(".close-modal")
+    it.only('Verify Stock check button is working', () => {
+
+        app.stockCheckButtonWorking(".conditional > a", 
+        "#js-product-series-search-section", 
+        "h2", ".close-modal")
+
     });
 
-    it.only('Verify Modal Functionality is Working', () => {
+    it('Verify Modal Functionality is Working', () => {
         app.clickButton(".absolute:eq(4)")
 
         app.inputData(".js-product-series-inventory-search", "A Series")

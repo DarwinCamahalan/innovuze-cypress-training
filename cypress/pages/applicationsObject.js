@@ -6,6 +6,20 @@ class applicationsObject{
         .should("be.visible")
     }
 
+    stockCheckButtonWorking(btnElement, modal, tag, closeModal ){
+        let btnText
+        cy.get(btnElement).should((btn) =>{
+            btnText = btn.text()
+        })
+        cy.get(btnElement).click()
+        cy.get(modal)
+        .find(tag).should((title) =>{
+           let modalTitle = title.text()
+            expect(btnText.trim()).equal(modalTitle);
+        })
+        cy.get(closeModal).click()
+    }
+
     verifyAttributeDataExist(element, text){
         cy.get(element).contains(text)
     }
@@ -58,9 +72,6 @@ class applicationsObject{
         cy.get(element).its('length').should('be.gt', length)
     }
 
-    correctURL(url){
-        cy.url().should('be.equal', url)
-    }
 
     stockButtonLoop(element, alias, element2, assertionElement, assertionText){
         cy.get(element)
